@@ -28,10 +28,10 @@ const deleteTodo = (id) => {
 };
 const deleteAllTodo = () => {
   // for(let i = 0; i < BASE_URL)
-  // const url = `${BASE_URL}`;
+  const url = `${BASE_URL}/todos`;
   // return http.get([]);
 
-  return http.deleteMany();
+  return http.delete(url);
 };
 
 export default {

@@ -42,11 +42,13 @@ const onDeleteClick = async () => {
 };
 
 const onDeleteAllClick = async () => {
-  // const list = await todos.list();
-  // for(let i = 0,)
-  // const { id } = list[0];
+  const list = await todos.list();
+  let result = '';
+  for (let i = 0; i < list.length; i++) {
+    const { id } = list[i];
+    result = await todos.delete(id);
+  }
 
-  const result = await todos.deleteAll();
   printResult('delete all todo', result);
 };
 
