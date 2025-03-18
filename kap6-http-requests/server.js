@@ -1,65 +1,66 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const { v4: uuidv4 } = require('uuid')
+const express = require('express');
+const bodyParser = require('body-parser');
+const { v4: uuidv4 } = require('uuid');
 
-const PORT = 8080
+const PORT = 8080;
 
-const app = express()
-let todos = []
+const app = express();
+let todos = [];
 
-app.use(express.static('public'))
-app.use(bodyParser.json())
+app.use(express.static('public'));
+app.use(bodyParser.json());
 
 app.get('/api/todos', (req, res) => {
-  res.send(todos)
-})
+  res.send(todos);
+});
 
 app.post('/api/todos', (req, res) => {
   const newTodo = {
     completed: false,
     ...req.body,
-    id: uuidv4()
-  }
+    id: uuidv4(),
+  };
 
-  todos.push(newTodo)
+  todos.push(newTodo);
 
-  res.status(201)
-  res.send(newTodo)
-})
+  res.status(201);
+  res.send(newTodo);
+});
 
 app.patch('/api/todos/:id', (req, res) => {
-  const indexToUpdate = todos.findIndex(
-    t => t.id === req.params.id
-  )
-  const oldTodo = todos[indexToUpdate]
+  const indexToUpdate = todos.findIndex((t) => t.id === req.params.id);
+  const oldTodo = todos[indexToUpdate];
 
   const newTodo = {
     ...oldTodo,
-    ...req.body
-  }
+    ...req.body,
+  };
 
-  todos[indexToUpdate] = newTodo
+  todos[indexToUpdate] = newTodo;
 
-  res.send(newTodo)
-})
+  res.send(newTodo);
+});
 
 app.put('/api/todos/:id', (req, res) => {
-  const indexToUpdate = todos.findIndex(
-    t => t.id === req.params.id
-  )
+  const indexToUpdate = todos.findIndex((t) => t.id === req.params.id);
 
-  todos[indexToUpdate] = req.body
+  todos[indexToUpdate] = req.body;
 
-  res.send(req.body)
-})
+  res.send(req.body);
+});
 
 app.delete('/api/todos/:id', (req, res) => {
-  todos = todos.filter(
-    t => t.id !== req.params.id
-  )
+  todos = todos.filter((t) => t.id !== req.params.id);
 
-  res.status(204)
-  res.send()
-})
+  res.status(204);
+  res.send();
+});
 
-app.listen(PORT)
+app.deleteMany('/api/todos/', (res) => {
+  todos = [];
+
+  res.status(204);
+  res.send();
+});
+
+app.listen(PORT);

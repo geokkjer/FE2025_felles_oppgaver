@@ -1,58 +1,71 @@
-import todos from './todos.js'
+import todos from './todos.js';
 
 const printResult = (action, result) => {
-  const time = (new Date()).toTimeString()
-  const node = document.createElement('p')
-  node.textContent = `${action.toUpperCase()}: ${JSON.stringify(result)} (${time})`
+  const time = new Date().toTimeString();
+  const node = document.createElement('p');
+  node.textContent = `${action.toUpperCase()}: ${JSON.stringify(
+    result
+  )} (${time})`;
 
-  document
-    .querySelector('div')
-    .appendChild(node)
-}
+  document.querySelector('div').appendChild(node);
+};
 
 const onListClick = async () => {
-  const result = await todos.list()
-  printResult('list todos', result)
-}
+  const result = await todos.list();
+  printResult('list todos', result);
+};
 
 const onAddClick = async () => {
-  const result = await todos.create('A simple todo Element')
-  printResult('add todo', result)
-}
+  const result = await todos.create('A simple todo Element');
+  printResult('add todo', result);
+};
 
 const onUpdateClick = async () => {
-  const list = await todos.list()
+  const list = await todos.list();
 
-  const { id } = list[0]
+  const { id } = list[0];
   const newTodo = {
     id,
-    completed: true
-  }
+    completed: true,
+  };
 
-  const result = await todos.update(newTodo)
-  printResult('update todo', result)
-}
+  const result = await todos.update(newTodo);
+  printResult('update todo', result);
+};
 
 const onDeleteClick = async () => {
-  const list = await todos.list()
-  const { id } = list[0]
+  const list = await todos.list();
+  const { id } = list[0];
 
-  const result = await todos.delete(id)
-  printResult('delete todo', result)
-}
+  const result = await todos.delete(id);
+  printResult('delete todo', result);
+};
+
+const onDeleteAllClick = async () => {
+  // const list = await todos.list();
+  // for(let i = 0,)
+  // const { id } = list[0];
+
+  const result = await todos.deleteAll();
+  printResult('delete all todo', result);
+};
+
+document
+  .querySelector('button[data-delete-all]')
+  .addEventListener('click', onDeleteAllClick);
 
 document
   .querySelector('button[data-list]')
-  .addEventListener('click', onListClick)
+  .addEventListener('click', onListClick);
 
 document
   .querySelector('button[data-add]')
-  .addEventListener('click', onAddClick)
+  .addEventListener('click', onAddClick);
 
 document
   .querySelector('button[data-update]')
-  .addEventListener('click', onUpdateClick)
+  .addEventListener('click', onUpdateClick);
 
 document
   .querySelector('button[data-delete]')
-  .addEventListener('click', onDeleteClick)
+  .addEventListener('click', onDeleteClick);
