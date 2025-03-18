@@ -59,14 +59,6 @@ const deleteRequest = async (url, headers) => {
   });
   return response.data;
 };
-const deleteAllRequest = async (url, headers) => {
-  const response = await request({
-    url,
-    headers,
-    method: 'DELETE',
-  });
-  return response.data;
-};
 
 export default {
   get,
@@ -74,5 +66,4 @@ export default {
   put,
   patch,
   delete: deleteRequest,
-  deleteAll: deleteAllRequest,
 };

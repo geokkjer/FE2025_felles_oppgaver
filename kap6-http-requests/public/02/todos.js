@@ -26,18 +26,10 @@ const deleteTodo = (id) => {
   const url = `${BASE_URL}/${id}`;
   return http.delete(url, HEADERS);
 };
-const deleteAllTodo = () => {
-  // for(let i = 0; i < BASE_URL)
-  const url = `${BASE_URL}/todos`;
-  // return http.get([]);
-
-  return http.delete(url);
-};
 
 export default {
   list,
   create,
   update,
   delete: deleteTodo,
-  deleteAll: deleteAllTodo,
 };

@@ -56,11 +56,4 @@ app.delete('/api/todos/:id', (req, res) => {
   res.send();
 });
 
-app.deleteMany('/api/todos/', (res) => {
-  todos = [];
-
-  res.status(204);
-  res.send();
-});
-
 app.listen(PORT);
