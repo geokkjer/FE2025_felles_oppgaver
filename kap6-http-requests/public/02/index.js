@@ -48,9 +48,10 @@ const onDeleteAllClick = async () => {
     const { id } = list[i];
     result = await todos.delete(id);
   }
-
   printResult('delete all todo', result);
 };
+
+const onUpdateAllCompleted = async () => {};
 
 document
   .querySelector('button[data-delete-all]')
