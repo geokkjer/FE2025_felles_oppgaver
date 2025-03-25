@@ -1,49 +1,42 @@
-let template
+let template;
 
 const getTemplate = () => {
   if (!template) {
-    template = document.getElementById('clicker-app')
+    template = document.getElementById('clicker-app');
   }
 
-  return template
-    .content
-    .firstElementChild
-    .cloneNode(true)
-}
+  return template.content.firstElementChild.cloneNode(true);
+};
 
 const addEvents = (targetElement, events) => {
-  const { clearCompleted, completeAll, addItem } = events
+  const { scoreUp, upgrade, reset } = events;
+
+  // targetElement
+  //   .querySelector('.new-todo')
+  //   .addEventListener('keypress', e => {
+  //     if (e.key === 'Enter') {
+  //       addItem(e.target.value)
+  //       e.target.value = ''
+  //     }
+  //   })
+
+  targetElement.querySelector('.plussOne').addEventListener('click', scoreUp);
 
   targetElement
-    .querySelector('.new-todo')
-    .addEventListener('keypress', e => {
-      if (e.key === 'Enter') {
-        addItem(e.target.value)
-        e.target.value = ''
-      }
-    })
-
-  targetElement
-    .querySelector('input.toggle-all')
-    .addEventListener('click', completeAll)
-
-  targetElement
-    .querySelector('.clear-completed')
-    .addEventListener('click', clearCompleted)
-}
+    .querySelector('button.upgrade')
+    .addEventListener('click', upgrade);
+  targetElement.querySelector('button.reset').addEventListener('click', reset);
+};
 
 export default (targetElement, state, events) => {
-  const newApp = targetElement.cloneNode(true)
+  const newApp = targetElement.cloneNode(true);
 
-  newApp.innerHTML = ''
-  newApp.appendChild(getTemplate())
+  newApp.innerHTML = '';
+  newApp.appendChild(getTemplate());
 
+  newApp.querySelector('button');
 
-  newApp
-    .querySelector('button')
+  addEvents(newApp, events);
 
-
-  addEvents(newApp, events)
-
-  return newApp
-}
+  return newApp;
+};

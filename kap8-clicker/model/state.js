@@ -2,7 +2,7 @@ const freeze = (x) => Object.freeze(window.structuredClone(x));
 
 const INITIAL_STATE = {
   clickerCount: 1,
-  score: 0
+  score: 0,
 };
 
 export default (initialState = INITIAL_STATE) => {
@@ -24,11 +24,7 @@ export default (initialState = INITIAL_STATE) => {
     listeners.forEach((l) => l(data));
   };
 
-  const addOne = (score) => {
-    if (!score) {
-      return;
-    }
-
+  const addOne = () => {
     state.score({
       score: score + 1,
     });
@@ -38,17 +34,14 @@ export default (initialState = INITIAL_STATE) => {
 
   const updateCounter = (score, clickerCount) => {
     if (score > 10) {
-      state.score = state.score - 10
-      state.clickerCount = state.clickerCount + 1
-    } else {
-        return
+      state.score = state.score - 10;
+      state.clickerCount = state.clickerCount + 1;
     }
 
     invokeListeners();
   };
 
-  const ResetCounter = () => {
-
+  const resetCounter = () => {
     state.todos.score = 0;
     state.clickerCount = 1;
 
@@ -58,7 +51,7 @@ export default (initialState = INITIAL_STATE) => {
   return {
     addOne,
     updateCounter,
-    ResetCounter,
+    resetCounter,
     addChangeListener,
   };
 };
