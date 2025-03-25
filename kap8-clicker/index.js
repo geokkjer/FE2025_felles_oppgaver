@@ -25,3 +25,38 @@ const loadState = () => {
 }
 
 const state = stateFactory(loadState())
+
+const {
+    addChangeListener,
+    ...events
+  } = state
+
+  const render = (state) => {
+    window.requestAnimationFrame(() => {
+      const main = document.querySelector('#root')
+  
+      const newMain = registry.renderRoot(
+        main,
+        state,
+        events)
+  
+      applyDiff(document.body, main, newMain)
+    })
+  }
+  
+  addChangeListener(render)
+  
+  addChangeListener(state => {
+    Promise.resolve().then(() => {
+      window
+        .localStorage
+        .setItem('state', JSON.stringify(state))
+    })
+  })
+  
+  addChangeListener(state => {
+    console.log(
+      `Current State (${(new Date()).getTime()})`,
+      state
+    )
+  })

@@ -1,10 +1,8 @@
 let template
 
-
-
 const getTemplate = () => {
   if (!template) {
-    template = document.getElementById('-app')
+    template = document.getElementById('clicker-app')
   }
 
   return template
@@ -40,21 +38,10 @@ export default (targetElement, state, events) => {
   newApp.innerHTML = ''
   newApp.appendChild(getTemplate())
 
-  if (noCompletedItemIsPresent(state.todos)) {
-    newApp
-      .querySelector('.clear-completed')
-      .classList
-      .add('hidden')
-  } else {
-    newApp
-      .querySelector('.clear-completed')
-      .classList
-      .remove('hidden')
-  }
 
   newApp
-    .querySelector('input.toggle-all')
-    .checked = allTodosCompleted(state.todos)
+    .querySelector('button')
+
 
   addEvents(newApp, events)
 
