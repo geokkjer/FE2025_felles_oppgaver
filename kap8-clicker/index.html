@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Clicker</title>
+  </head>
+  <body>
+    <template id="clicker-item">
+      <div class="view">
+        <label></label>
+        <button class=""></button>
+        <button class=""></button>
+      </div>
+    </template>
+    <template id="clicker-app">
+      <section class="clickerapp">
+        <header class="header">
+          <h1>Clicker</h1>
+        </header>
+        <section class="main">
+            <button class="plussOne">Plus One</button>
+            <button class="upgrade">Upgrade</button>
+        </section>
+        <footer class="footer">
+          <span class="clicker-count" data-component="counter"> </span>
+          <button class="reset">Reset</button>
+        </footer>
+      </section>
+    </template>
+    <div id="root">
+      <div data-component="app"></div>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
