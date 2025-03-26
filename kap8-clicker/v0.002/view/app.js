@@ -1,14 +1,5 @@
 let template
 
-// const allTodosCompleted = todos => {
-//   if (todos.length === 0) {
-//     return false
-//   }
-//   return !todos.find(t => !t.completed)
-// }
-
-// const noCompletedItemIsPresent = todos => !todos.find(t => t.completed)
-
 const getTemplate = () => {
   if (!template) {
     template = document.getElementById('clicker-app')
@@ -38,22 +29,6 @@ export default (targetElement, state, events) => {
 
   newApp.innerHTML = ''
   newApp.appendChild(getTemplate())
-
-  // if (noCompletedItemIsPresent(state.todos)) {
-  //   newApp
-  //     .querySelector('.clear-completed')
-  //     .classList
-  //     .add('hidden')
-  // } else {
-  //   newApp
-  //     .querySelector('.clear-completed')
-  //     .classList
-  //     .remove('hidden')
-  // }
-
-  // newApp
-  //   .querySelector('input.toggle-all')
-  //   .checked = allTodosCompleted(state.todos)
 
   addEvents(newApp, events)
 
