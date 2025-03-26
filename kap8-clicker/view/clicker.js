@@ -2,21 +2,19 @@ let template;
 
 const createScoreNode = () => {
   if (!template) {
-    template = document.getElementById('score-item');
+    template = document.getElementById('clicker-app');
   }
 
   return template.content.firstElementChild.cloneNode(true);
 };
 const attachEventsToClickerElement = (element, events) => {
-  // const handler = (e) => events.addOne();
+  const handler = (e) => events.addOne();
 
-  element
-    .querySelector('.plussOne')
-    .addEventListener('click', (events) => events.addOne());
+  element.querySelector('.plussOne').addEventListener('click', handler);
 
   element
     .querySelector('.upgrade')
-    .addEventListener('click', (events) => events.upgradeCounter());
+    .addEventListener('click', (e) => events.upgradeCounter());
 
   // element.addEventListener('dblclick', () => {
   //   element.classList.add('editing');
@@ -46,7 +44,14 @@ export default (targetElement, state, events) => {
   const { score, clickerCount } = state;
   const newCounter = targetElement.cloneNode(true);
 
-  // newTodoList.innerHTML = ''
+  newCounter.innerHTML = '';
+  const Counter = counter(score, clickerCount);
+
+  Counter.map((score) => getClickerElement(score, events)).forEach(
+    (element) => {
+      newCounter.appendChild(element);
+    }
+  );
 
   return newCounter;
 };

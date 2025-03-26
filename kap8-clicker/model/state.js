@@ -25,10 +25,7 @@ export default (initialState = INITIAL_STATE) => {
   };
 
   const addOne = () => {
-    state.score({
-      score: score + 1,
-    });
-
+    state.score += 1;
     invokeListeners();
   };
 
