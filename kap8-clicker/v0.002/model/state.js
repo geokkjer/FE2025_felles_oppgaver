@@ -1,3 +1,5 @@
+import state from '../../v0.001v2/model/state';
+
 const freeze = (x) => Object.freeze(window.structuredClone(x));
 
 const INITIAL_STATE = {
