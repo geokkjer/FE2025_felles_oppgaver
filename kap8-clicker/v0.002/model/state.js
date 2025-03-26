@@ -1,3 +1,5 @@
+import state from "../../v0.001v2/model/state";
+
 const freeze = (x) => Object.freeze(window.structuredClone(x));
 
 const INITIAL_STATE = {
@@ -23,8 +25,8 @@ export default (initialState = INITIAL_STATE) => {
     listeners.forEach((l) => l(data));
   };
 
-  const scoreUp = () => {
-    state.score = state.score + update;
+  const scoreUp = (score, update) => {
+    score = score + update;
     invokeListeners();
   };
   const upgradeUp = () => {
