@@ -24,15 +24,15 @@ export default (initialState = INITIAL_STATE) => {
   };
 
   const scoreUp = () => {
-    state.score = state.score + update;
+    state.score += state.update;
     invokeListeners();
   };
   const upgradeUp = () => {
     if (state.score > 10) {
       state.score -= 10;
-      state.update++;
+      state.update += 1;
     } else {
-      console.log("You do not have 10 points");
+      console.log('You do not have 10 points');
     }
     invokeListeners();
   };
