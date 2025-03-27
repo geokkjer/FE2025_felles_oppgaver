@@ -10,7 +10,6 @@ let state
 describe("observable model", () => {
   beforeEach(() => {
     state = modelFactory(initState);  
-   
   });
 
   test("click should increase score + 1", () => {

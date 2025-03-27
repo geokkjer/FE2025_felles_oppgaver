@@ -1,4 +1,4 @@
-const freeze = (x) => Object.freeze(structuredClone(x));
+const freeze = (x) => Object.freeze(window.structuredClone(x));
 
 const INITIAL_STATE = {
   score: 0,
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 
 export default (initialState = INITIAL_STATE) => {
-  const state = structuredClone(initialState);
+  const state = window.structuredClone(initialState);
   let listeners = [];
   let score = state.score
   let updates = state.update
