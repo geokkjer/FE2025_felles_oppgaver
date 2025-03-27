@@ -43,3 +43,5 @@ addChangeListener((state) => {
 addChangeListener((state) => {
   console.log(`Current State (${new Date().getTime()})`, state);
 });
+
+export { loadState }

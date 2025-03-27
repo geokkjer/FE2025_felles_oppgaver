@@ -1,13 +1,15 @@
 const freeze = (x) => Object.freeze(structuredClone(x));
 
 const INITIAL_STATE = {
-  score: 1,
+  score: 0,
   update: 1,
 };
 
 export default (initialState = INITIAL_STATE) => {
   const state = structuredClone(initialState);
   let listeners = [];
+  let score = state.score
+  let updates = state.update
 
   const addChangeListener = (listener) => {
     listeners.push(listener);
@@ -25,21 +27,28 @@ export default (initialState = INITIAL_STATE) => {
 
   const scoreUp = () => {
     state.score += state.update;
+    score = state.score
     invokeListeners();
+    return score
   };
   const upgradeUp = () => {
     if (state.score >= 10) {
       state.score -= 10;
       state.update += 1;
+      score = state.score
+      updates = state.update
     } else {
       console.log('You do not have 10 points');
     }
     invokeListeners();
+    return updates
   };
   return {
+    score,
+    updates,
     scoreUp,
     upgradeUp,
     addChangeListener,
   };
 };
-export { INITIAL_STATE }
+
