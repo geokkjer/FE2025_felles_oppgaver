@@ -1,30 +1,36 @@
-import applyDiff from './applyDiff.js';
-import counterView from './view/counter.js';
-import registry from './registry.js';
-import appView from './view/app.js';
+import applyDiff from "./applyDiff.js";
+import counterView from "./view/counter.js";
+import registry from "./registry.js";
+import appView from "./view/app.js";
 
-import stateFactory from './model/model.js';
+import stateFactory from "./model/model.js";
 
-registry.add('app', appView);
-registry.add('counter', counterView);
+registry.add("app", appView);
+registry.add("counter", counterView);
 
-const loadState = () => {
-  const serializedState = window.localStorage.getItem('state');
-
-  if (!serializedState) {
-    return;
-  }
-
-  return JSON.parse(serializedState);
+const base = {
+  score: 0,
+  update: 1,
 };
 
-const state = stateFactory(loadState());
+const handler = {
+  get: (target, name) => {
+    console.log(target, name)
+    return target[name]
+  },
+  set: (target, name, value) => {
+    console.log(`${target} ${name} ${value}`)
+  },
+};
+
+const proxy = new Proxy(base, handler);
+const state = stateFactory(proxy);
 
 const { addChangeListener, ...events } = state;
 
 const render = (state) => {
   window.requestAnimationFrame(() => {
-    const main = document.querySelector('#root');
+    const main = document.querySelector("#root");
 
     const newMain = registry.renderRoot(main, state, events);
 
@@ -36,11 +42,10 @@ addChangeListener(render);
 
 addChangeListener((state) => {
   Promise.resolve().then(() => {
-    window.localStorage.setItem('state', JSON.stringify(state));
+    window.localStorage.setItem("state", JSON.stringify(state));
   });
 });
 
 addChangeListener((state) => {
   console.log(`Current State (${new Date().getTime()})`, state);
 });
-
