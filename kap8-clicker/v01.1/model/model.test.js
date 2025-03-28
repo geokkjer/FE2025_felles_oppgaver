@@ -1,24 +1,27 @@
-import modelFactory from "./state.js";
-const initState = {
-    score: 10,
-    update: 1
-}
 
-let state
+import modelFactory from "./model.js";
+
+let model
 
 
 describe("observable model", () => {
   beforeEach(() => {
-    state = modelFactory(initState);  
+    model = modelFactory({score: 10, update: 1});  
   });
 
   test("click should increase score + 1", () => {
-    let score = state.scoreUp()
-    expect(score).toBe(11);
+    model.scoreUp()
+    model.addChangeListener(state => {
+        expect(state.score).toBe(11)
+    });
   });
 
   test("click should increase upgrade + 1 and score -10", () => {
-    let upgrade = state.upgradeUp()
-    expect(upgrade).toBe(2);
+    model.upgradeUp()
+    model.addChangeListener(state => {
+        expect(state.score).toBe(0)
+        expect(state.update).toBe(2)
+
+    });
   });
 });

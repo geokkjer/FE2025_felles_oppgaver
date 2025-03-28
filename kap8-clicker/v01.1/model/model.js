@@ -1,4 +1,4 @@
-const freeze = (x) => Object.freeze(window.structuredClone(x));
+const freeze = (x) => Object.freeze(structuredClone(x));
 
 const INITIAL_STATE = {
   score: 0,
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 
 export default (initialState = INITIAL_STATE) => {
-  const state = window.structuredClone(initialState);
+  const state = structuredClone(initialState);
   let listeners = [];
   let score = state.score
   let updates = state.update
@@ -29,7 +29,6 @@ export default (initialState = INITIAL_STATE) => {
     state.score += state.update;
     score = state.score
     invokeListeners();
-    return score
   };
   const upgradeUp = () => {
     if (state.score >= 10) {
@@ -41,11 +40,8 @@ export default (initialState = INITIAL_STATE) => {
       console.log('You do not have 10 points');
     }
     invokeListeners();
-    return updates
   };
   return {
-    score,
-    updates,
     scoreUp,
     upgradeUp,
     addChangeListener,

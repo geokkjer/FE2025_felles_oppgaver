@@ -3,7 +3,7 @@ import counterView from './view/counter.js';
 import registry from './registry.js';
 import appView from './view/app.js';
 
-import stateFactory from './model/state.js';
+import stateFactory from './model/model.js';
 
 registry.add('app', appView);
 registry.add('counter', counterView);
