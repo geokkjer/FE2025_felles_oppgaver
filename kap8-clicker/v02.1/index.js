@@ -1,13 +1,3 @@
-import applyDiff from "./applyDiff.js";
-import counterView from "./view/counter.js";
-import registry from "./registry.js";
-import appView from "./view/app.js";
-
-import stateFactory from "./model/model.js";
-
-registry.add("app", appView);
-registry.add("counter", counterView);
-
 const base = {
   score: 0,
   update: 1,
@@ -15,37 +5,30 @@ const base = {
 
 const handler = {
   get: (target, name) => {
-    console.log(target, name)
-    return target[name]
+    console.log(`Getting ${name}`);
+    return target[name];
   },
   set: (target, name, value) => {
-    console.log(`${target} ${name} ${value}`)
+    console.log(`Setting ${name} to ${value}`);
+    target[name] = value;
+    return true;
   },
 };
 
 const proxy = new Proxy(base, handler);
-const state = stateFactory(proxy);
-
-const { addChangeListener, ...events } = state;
-
-const render = (state) => {
-  window.requestAnimationFrame(() => {
-    const main = document.querySelector("#root");
-
-    const newMain = registry.renderRoot(main, state, events);
-
-    applyDiff(document.body, main, newMain);
-  });
-};
-
-addChangeListener(render);
-
-addChangeListener((state) => {
-  Promise.resolve().then(() => {
-    window.localStorage.setItem("state", JSON.stringify(state));
-  });
+document.body.addEventListener(
+  "click",
+  () => (document.getElementById("score").innerHTML = /*HTML*/ `${proxy.score}`)
+);
+document
+  .querySelector("#up")
+  .addEventListener("click", () => (proxy.score = proxy.score + proxy.update));
+document.querySelector("#upgrade").addEventListener("click", () => {
+  if (proxy.score >= 10) {
+    proxy.score -= 10;
+    proxy.update += 1
+  } else {
+    alert('No!!!!')
+  }
 });
 
-addChangeListener((state) => {
-  console.log(`Current State (${new Date().getTime()})`, state);
-});
