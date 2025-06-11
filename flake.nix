@@ -18,13 +18,9 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs
-            npm
             yarn
+            deno
             typescript
-            nodePackages.ts-node
-            nodePackages.nodemon
-            nodePackages.eslint
-            nodePackages.prettier
           ];
 
           shellHook = ''
@@ -32,12 +28,12 @@
             echo "Node version: $(node --version)"
             echo "npm version: $(npm --version)"
             echo "TypeScript version: $(tsc --version)"
+            echo "Deno version: $(deno --version)"
             echo ""
             echo "Available tools:"
             echo "  - node, npm, yarn"
             echo "  - typescript, ts-node"
-            echo "  - eslint, prettier"
-            echo "  - nodemon for auto-restart"
+            echo "  - deno (for Deno projects)"
           '';
         };
       }
