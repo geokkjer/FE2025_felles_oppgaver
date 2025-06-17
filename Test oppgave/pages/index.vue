@@ -20,10 +20,9 @@
       </div>
     </div> -->
     <div class="content">
-      <Recipes v-if="activeTab === 'recipes'" />
       <FormRenderer 
       :schema="[
-        { name: 'Tittel', label: 'tittel', type: 'number' },
+        { name: 'tittel', label: 'titel', type: 'text' },
         { name: 'Tags', label: 'tags', type: 'text' },
         { name: 'Ingredienser', label: 'ingredients', type: 'textarea' },
         { name: 'Instruksjoner', label: 'instructions', type: 'textarea' }
@@ -32,14 +31,27 @@
       :mode="'edit'"
       @save="submitForm"
   />
+ 
     </div>
+    <!-- <RecipeCard
+      v-for="recipe in store.recipes"
+      :key="recipe.title"
+      :recipe="recipe"
+      /> -->
+       <Recipes />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Field } from "../metdata/schemas";
 import { ref, reactive } from "vue";
+import { useRecipeStore } from "../store/store";
+const title = ref("");
+const tagsInput = ref("");
+const ingredients = ref("");
+const instructions = ref("");
 
+const store = useRecipeStore();
 const activeTab = ref("recipes");
 const formModel = reactive({
   tittel: '',
