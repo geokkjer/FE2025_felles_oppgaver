@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { reactive, toRefs } from 'vue';
 import type { Field } from '../metdata/schemas';
+import { useRecipeStore } from '../store/store';
+
+const store = useRecipeStore();
 
 /* props */
 const props = defineProps<{
@@ -11,6 +14,33 @@ const props = defineProps<{
 
 /* Lokal kopi i edit-modus så vi ikke skriver direkte i props */
 const local = reactive({ ...props.model });
+function submitForm() {
+  const tags = local.tags
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+  const ingredientsArr = local.ingredients
+    .split("\n")
+    .map((i) => i.trim())
+    .filter(Boolean);
+    
+  const recipeData = {
+    title: local.title,
+    tags,
+    ingredients: ingredientsArr,
+    instructions: local.instructions,
+  };
+  console.log("Submitting recipe:", recipeData);
+  store.addRecipe(recipeData);
+  
+  // Reset form after submission
+  Object.assign(local, {
+    title: '',
+    tags: '',
+    ingredients: '',
+    instructions: ''
+  });
+}
 </script>
 
 <template>
@@ -37,9 +67,9 @@ const local = reactive({ ...props.model });
     </div>
 
     <!-- Lagre-knapp vises bare i edit -->
-    <button v-if="mode === 'edit'" @click="$emit('save', local)">
+  <button v-if="mode === 'edit'" @click="submitForm" class="btn btn-primary">
       Legg til
-    </button>
+    </button> 
   </div>
 </template>
 
